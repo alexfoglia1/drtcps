@@ -26,8 +26,9 @@ typedef struct
   uint8_t cur_distance;
   uint8_t new_message;
   distance_measurement_t dist;
-
+  message_t received_msg;
   message_t transmit_msg;
+  uint8_t received_okjoin;
 } USERDATA;
 
 

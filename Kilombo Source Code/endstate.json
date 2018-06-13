@@ -4,16 +4,16 @@
       "ID": 0,
       "direction": 0.81549738688806495,
       "state": {},
-      "x_position": 131.86641204715951,
-      "y_position": 5.1428206463404722
+      "x_position": 118.0,
+      "y_position": 7.0
     },
     {
       "ID": 1,
       "direction": 1.3713485829272285,
       "state": {},
-      "x_position": -52.0,
-      "y_position": 7.0
+      "x_position": 71.762897593656447,
+      "y_position": -7.4728443715774659
     }
   ],
-  "ticks": 525
+  "ticks": 742
 }
