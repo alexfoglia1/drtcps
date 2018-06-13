@@ -1,0 +1,699 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="CS$s" id="3" collapsed="true" x="0" y="0">
+    <field name="cardinality">1</field>
+    <field name="name">Controller</field>
+    <field name="system_type">autonomous</field>
+    <field name="#boundary">+</field>
+    <field name="#state_space">+</field>
+    <field name="#HMI">+</field>
+    <field name="#CPS">+</field>
+    <field name="#service">+</field>
+    <field name="#role_player">+</field>
+    <field name="#physical_system">+</field>
+    <field name="#RUI">+</field>
+    <field name="#dependability_guarantee">+</field>
+    <field name="#fault_containment_region">+</field>
+    <field name="#MAPE_algorithm">+</field>
+    <field name="#security">+</field>
+    <field name="#clock">+</field>
+    <field name="#system_resource">+</field>
+    <field name="#architectural_style">+</field>
+    <field name="#subsystem">+</field>
+    <field name="#state_variable">+</field>
+    <field name="#interface">+</field>
+    <field name="#dynamicity">+</field>
+    <statement name="interacts_with:CPS">
+      <block type="CPS$s" id="46" collapsed="true">
+        <field name="cardinality">10</field>
+        <field name="name">kilobots</field>
+        <field name="#role_player">+</field>
+        <field name="#physical_system">+</field>
+        <field name="#cyber_system">+</field>
+      </block>
+    </statement>
+    <statement name="interacts_with:role_player">
+      <block type="role_player$s" id="75">
+        <field name="cardinality">1</field>
+        <field name="name">User</field>
+      </block>
+    </statement>
+    <statement name="has:RUI">
+      <block type="RUMI$s" id="42">
+        <field name="name">cntlirda</field>
+        <field name="has_connection">FALSE</field>
+        <field name="#connecting_strategy">+</field>
+        <field name="#interface_specification">+</field>
+        <field name="#interface_port">+</field>
+        <field name="#afferent_environment">+</field>
+        <field name="#efferent_environment">+</field>
+        <field name="#interface_model">+</field>
+        <field name="#service">+</field>
+        <field name="#message">+</field>
+        <field name="#RUMI">+</field>
+        <field name="#probe">+</field>
+        <field name="#security">+</field>
+      </block>
+    </statement>
+    <next>
+      <block type="CS$s" id="4" collapsed="true">
+        <field name="cardinality">10</field>
+        <field name="name">Kilobots</field>
+        <field name="system_type">autonomous</field>
+        <field name="#boundary">+</field>
+        <field name="#state_space">+</field>
+        <field name="#HMI">+</field>
+        <field name="#CPS">+</field>
+        <field name="#service">+</field>
+        <field name="#role_player">+</field>
+        <field name="#physical_system">+</field>
+        <field name="#RUI">+</field>
+        <field name="#dependability_guarantee">+</field>
+        <field name="#fault_containment_region">+</field>
+        <field name="#MAPE_algorithm">+</field>
+        <field name="#security">+</field>
+        <field name="#clock">+</field>
+        <field name="#system_resource">+</field>
+        <field name="#architectural_style">+</field>
+        <field name="#subsystem">+</field>
+        <field name="#state_variable">+</field>
+        <field name="#interface">+</field>
+        <field name="#dynamicity">+</field>
+        <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. A3
+        </requirement>
+        <data>A3</data>
+        <statement name="interacts_with:CPS">
+          <block type="__link" id="47">
+            <field name="link_to">CPS / kilobots</field>
+            <data>CPS : 46 : 0</data>
+            <next>
+              <block type="CPS$s" id="48" collapsed="true">
+                <field name="cardinality">1</field>
+                <field name="name">Controller</field>
+                <field name="#role_player">+</field>
+                <field name="#physical_system">+</field>
+                <field name="#cyber_system">+</field>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="has:RUI">
+          <block type="RUPI$s" id="50" collapsed="true">
+            <field name="name">Calculate distance</field>
+            <field name="has_connection">FALSE</field>
+            <field name="#connecting_strategy">+</field>
+            <field name="#interface_specification">+</field>
+            <field name="#interface_port">+</field>
+            <field name="#afferent_environment">+</field>
+            <field name="#efferent_environment">+</field>
+            <field name="#interface_model">+</field>
+            <field name="#thing">+</field>
+            <field name="#environment">+</field>
+            <field name="#RUPI">+</field>
+            <field name="#probe">+</field>
+            <field name="#security">+</field>
+            <statement name="affects:environment">
+              <block type="__link" id="64">
+                <field name="link_to">Environment / Whiteboard</field>
+                <data>environment : 35 : 0</data>
+              </block>
+            </statement>
+            <statement name="connects:RUPI">
+              <block type="__link" id="65">
+                <field name="link_to">RUPI / Calculate distance</field>
+                <data>RUPI : 50 : 0</data>
+              </block>
+            </statement>
+            <statement name="satisfies_the_condition_of:security">
+              <block type="__link" id="66">
+                <field name="link_to">Security / distance</field>
+                <data>security : 54 : 0</data>
+              </block>
+            </statement>
+            <next>
+              <block type="RUMI$s" id="51" collapsed="true">
+                <field name="name">Kilobot irda messaging</field>
+                <field name="has_connection">FALSE</field>
+                <field name="#connecting_strategy">+</field>
+                <field name="#interface_specification">+</field>
+                <field name="#interface_port">+</field>
+                <field name="#afferent_environment">+</field>
+                <field name="#efferent_environment">+</field>
+                <field name="#interface_model">+</field>
+                <field name="#service">+</field>
+                <field name="#message">+</field>
+                <field name="#RUMI">+</field>
+                <field name="#probe">+</field>
+                <field name="#security">+</field>
+                <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. C1
+2. C2
+3. C3
+                </requirement>
+                <data>C1,C2,C3</data>
+                <statement name="has_a:connecting_strategy">
+                  <block type="connecting_strategy$i" id="55" collapsed="true">
+                    <field name="name">CSMA/CD</field>
+                    <field name="#stop_criteria">+</field>
+                  </block>
+                </statement>
+                <statement name="exchanges:message">
+                  <block type="message$s" id="57" collapsed="true">
+                    <field name="name">STRAIGHT</field>
+                    <field name="transport_type">PAR_message</field>
+                    <field name="header">  ?  </field>
+                    <field name="data_field">  ?  </field>
+                    <field name="#message_classification">+</field>
+                    <field name="#trailer">+</field>
+                    <next>
+                      <block type="message$s" id="58" collapsed="true">
+                        <field name="name">TURN_RIGHT</field>
+                        <field name="transport_type">PAR_message</field>
+                        <field name="header">  ?  </field>
+                        <field name="data_field">  ?  </field>
+                        <field name="#message_classification">+</field>
+                        <field name="#trailer">+</field>
+                        <next>
+                          <block type="message$s" id="59" collapsed="true">
+                            <field name="name">LEAVE</field>
+                            <field name="transport_type">PAR_message</field>
+                            <field name="header">  ?  </field>
+                            <field name="data_field">  ?  </field>
+                            <field name="#message_classification">+</field>
+                            <field name="#trailer">+</field>
+                            <next>
+                              <block type="message$s" id="60" collapsed="true">
+                                <field name="name">JOIN</field>
+                                <field name="transport_type">PAR_message</field>
+                                <field name="header">  ?  </field>
+                                <field name="data_field">  ?  </field>
+                                <field name="#message_classification">+</field>
+                                <field name="#trailer">+</field>
+                                <next>
+                                  <block type="message$s" id="61" collapsed="true">
+                                    <field name="name">Kilo_uid,LEADER</field>
+                                    <field name="transport_type">PAR_message</field>
+                                    <field name="header">  ?  </field>
+                                    <field name="data_field">  ?  </field>
+                                    <field name="#message_classification">+</field>
+                                    <field name="#trailer">+</field>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <statement name="connects:RUMI">
+                  <block type="__link" id="104">
+                    <field name="link_to">RUMI / Kilobot irda messaging</field>
+                    <data>RUMI : 51 : 0</data>
+                  </block>
+                </statement>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="satisfies_the_condition_of:security">
+          <block type="security$s" id="54" collapsed="true">
+            <field name="name">distance</field>
+            <field name="#cryptography">+</field>
+            <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. A5
+            </requirement>
+            <data>A5</data>
+          </block>
+        </statement>
+        <statement name="has:state_variable">
+          <block type="state_variable$s" id="52" collapsed="true">
+            <field name="name">kilo_uid</field>
+            <field name="value">  ?  </field>
+            <field name="#state">+</field>
+            <next>
+              <block type="state_variable$s" id="53">
+                <field name="name">leader_uid</field>
+                <field name="value">  ?  </field>
+                <field name="#state">+</field>
+                <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. A7
+                </requirement>
+                <data>A7</data>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+  <block type="SoS$s" id="1" x="0" y="81">
+    <field name="name">kilo_platoon</field>
+    <field name="sos_type">acknowledged</field>
+    <field name="#system">+</field>
+    <field name="#evolution">+</field>
+    <field name="#dependability_guarantee">+</field>
+    <field name="#behaviour">+</field>
+    <field name="#security">+</field>
+    <comment pinned="false" h="159" w="767">This is an example System-of-Systems (SoS) block named "example_block", on the work-space.
+
+You may:
+ 1. Drag the block/work-space with the mouse.
+ 2. Minimize / Maximize / Partially minimize a block by double clicking on it.
+ 3. Drag and drop new blocks from the Toolbox from *left* hand side.
+ 4. Add related blocks to this block by clicking (+) drop-down below.
+ 5. Right click on the block/work-space to see a menu.
+ 6. Close this *comment* by clicking on the (?) button.
+    </comment>
+    <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. A4
+    </requirement>
+    <data>A4</data>
+    <statement name="is_composed_of:system">
+      <block type="__link" id="102" collapsed="true">
+        <field name="link_to">CS / Controller</field>
+        <data>CS : 3 : 0</data>
+        <next>
+          <block type="__link" id="103">
+            <field name="link_to">CS / Kilobots</field>
+            <data>CS : 4 : 0</data>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="simple_requirement" id="76" collapsed="true" x="0" y="442">
+    <field name="req_id">A1</field>
+    <field name="title">Title</field>
+  </block>
+  <block type="dynamic_service$s" id="182" collapsed="true" x="0" y="497">
+    <field name="name">leader_election</field>
+    <field name="#service">+</field>
+    <statement name="variation_to:service">
+      <block type="service$s" id="183" collapsed="true">
+        <field name="name">Lead_elect</field>
+        <field name="#state_variable">+</field>
+      </block>
+    </statement>
+  </block>
+  <block type="requirements" id="113" collapsed="true" x="0" y="552">
+    <requirement pinned="false" h="100" w="200">All requirements have been met</requirement>
+    <statement name="Architecture_requirements">
+      <block type="simple_requirement" id="72">
+        <field name="req_id">A3</field>
+        <field name="title">kbots</field>
+        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. CS : Kilobots
+        </requirement>
+        <data>4</data>
+        <next>
+          <block type="simple_requirement" id="120">
+            <field name="req_id">A2</field>
+            <field name="title">wb</field>
+            <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Environment : Whiteboard
+            </requirement>
+            <data>35</data>
+            <next>
+              <block type="simple_requirement" id="71">
+                <field name="req_id">A1</field>
+                <field name="title">wb1</field>
+                <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Environment : Whiteboard
+                </requirement>
+                <data>35</data>
+                <next>
+                  <block type="simple_requirement" id="82">
+                    <field name="req_id">A5</field>
+                    <field name="title">msgs</field>
+                    <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Security : distance
+                    </requirement>
+                    <data>54</data>
+                    <next>
+                      <block type="simple_requirement" id="84">
+                        <field name="req_id">A7</field>
+                        <field name="title">leader</field>
+                        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. State variable : leader_uid
+                        </requirement>
+                        <data>53</data>
+                        <next>
+                          <block type="simple_requirement" id="74">
+                            <field name="req_id">A4</field>
+                            <field name="title">msgs1</field>
+                            <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. SoS : kilo_platoon
+                            </requirement>
+                            <data>1</data>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="Communication_requirements">
+      <block type="simple_requirement" id="86">
+        <field name="req_id">C1</field>
+        <field name="title">mtypes</field>
+        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. RUMI : Kilobot irda messaging
+        </requirement>
+        <data>51</data>
+        <next>
+          <block type="simple_requirement" id="83">
+            <field name="req_id">C2</field>
+            <field name="title">lead</field>
+            <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. RUMI : Kilobot irda messaging
+            </requirement>
+            <data>51</data>
+            <next>
+              <block type="simple_requirement" id="91">
+                <field name="req_id">C3</field>
+                <field name="title">dist</field>
+                <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. RUMI : Kilobot irda messaging
+                </requirement>
+                <data>51</data>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="Dynamicity_requirements">
+      <block type="simple_requirement" id="106">
+        <field name="req_id">D1</field>
+        <field name="title">anykbots</field>
+        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Dynamic interaction : enterexit
+        </requirement>
+        <data>88</data>
+      </block>
+    </statement>
+    <statement name="Evolution_requirements">
+      <block type="simple_requirement" id="93">
+        <field name="req_id">E1</field>
+        <field name="title">platoon</field>
+        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Emergent phenomenon : platoon
+        </requirement>
+        <data>78</data>
+      </block>
+    </statement>
+  </block>
+  <block type="sequence_diagram$s" id="129" x="0" y="603">
+    <field name="name">sqdg</field>
+    <field name="#sub_sequence">+</field>
+    <statement name="has:sub_sequence">
+      <block type="sub_sequence$s" id="248" collapsed="true">
+        <field name="name">load_prgrm</field>
+        <field name="#sequence">+</field>
+        <statement name="has:sequence">
+          <block type="service_request$s" id="250" collapsed="true">
+            <field name="arguments_in_CSV">True</field>
+            <field name="on_condition">True</field>
+            <field name="#state_variable">+</field>
+            <field name="#service">+</field>
+            <field name="#RUMI">+</field>
+            <field name="#RUMI">+</field>
+            <field name="#state_variable">+</field>
+            <field name="#sequence">+</field>
+            <field name="#sequence">+</field>
+            <statement name="request:service">
+              <block type="__link" id="298">
+                <field name="link_to">Service / load_prg</field>
+                <data>service : 297 : 1</data>
+              </block>
+            </statement>
+            <statement name="source:RUMI">
+              <block type="__link" id="299">
+                <field name="link_to">RUMI / cntlirda</field>
+                <data>RUMI : 42 : 1</data>
+              </block>
+            </statement>
+            <statement name="destination:RUMI">
+              <block type="__link" id="300">
+                <field name="link_to">RUMI / all_kbots</field>
+                <data>RUMI : 232 : 1</data>
+              </block>
+            </statement>
+            <statement name="on_success:sequence">
+              <block type="service_request$s" id="306">
+                <field name="arguments_in_CSV">True</field>
+                <field name="on_condition">True</field>
+                <field name="#state_variable">+</field>
+                <field name="#service">+</field>
+                <field name="#RUMI">+</field>
+                <field name="#RUMI">+</field>
+                <field name="#state_variable">+</field>
+                <field name="#sequence">+</field>
+                <field name="#sequence">+</field>
+                <statement name="request:service">
+                  <block type="__link" id="307">
+                    <field name="link_to">Service / Lead_elect</field>
+                    <data>service : 183 : 1</data>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </statement>
+        <next>
+          <block type="sub_sequence$s" id="130" collapsed="true">
+            <field name="name">leader_election</field>
+            <field name="#sequence">+</field>
+            <statement name="has:sequence">
+              <block type="service_request$s" id="131">
+                <field name="arguments_in_CSV">True</field>
+                <field name="on_condition">True</field>
+                <field name="#state_variable">+</field>
+                <field name="#service">+</field>
+                <field name="#RUMI">+</field>
+                <field name="#RUMI">+</field>
+                <field name="#state_variable">+</field>
+                <field name="#sequence">+</field>
+                <field name="#sequence">+</field>
+                <statement name="store_reply_in:state_variable">
+                  <block type="__link" id="134">
+                    <field name="link_to">State variable / leader_uid</field>
+                    <data>state_variable : 53 : 1</data>
+                  </block>
+                </statement>
+                <statement name="request:service">
+                  <block type="__link" id="184">
+                    <field name="link_to">Service / Lead_elect</field>
+                    <data>service : 183 : 1</data>
+                  </block>
+                </statement>
+                <statement name="source:RUMI">
+                  <block type="__link" id="135">
+                    <field name="link_to">RUMI / Kilobot irda messaging</field>
+                    <data>RUMI : 51 : 1</data>
+                  </block>
+                </statement>
+                <statement name="destination:RUMI">
+                  <block type="__link" id="235">
+                    <field name="link_to">RUMI / all_kbots</field>
+                    <data>RUMI : 232 : 1</data>
+                  </block>
+                </statement>
+                <statement name="has_arguments:state_variable">
+                  <block type="__link" id="137">
+                    <field name="link_to">State variable / kilo_uid</field>
+                    <data>state_variable : 52 : 0</data>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="wrapper$s" id="231" x="0" y="773">
+    <field name="cardinality">1</field>
+    <field name="name">Name</field>
+    <field name="system_type">autonomous</field>
+    <field name="#state_machine">+</field>
+    <field name="#legacy_system">+</field>
+    <field name="#state_machine">+</field>
+    <field name="#boundary">+</field>
+    <field name="#state_space">+</field>
+    <field name="#HMI">+</field>
+    <field name="#CPS">+</field>
+    <field name="#service">+</field>
+    <field name="#role_player">+</field>
+    <field name="#physical_system">+</field>
+    <field name="#RUI">+</field>
+    <field name="#dependability_guarantee">+</field>
+    <field name="#fault_containment_region">+</field>
+    <field name="#MAPE_algorithm">+</field>
+    <field name="#security">+</field>
+    <field name="#clock">+</field>
+    <field name="#system_resource">+</field>
+    <field name="#architectural_style">+</field>
+    <field name="#subsystem">+</field>
+    <field name="#state_variable">+</field>
+    <field name="#interface">+</field>
+    <field name="#dynamicity">+</field>
+    <statement name="has:RUI">
+      <block type="RUMI$s" id="232" collapsed="true">
+        <field name="name">all_kbots</field>
+        <field name="has_connection">FALSE</field>
+        <field name="#connecting_strategy">+</field>
+        <field name="#interface_specification">+</field>
+        <field name="#interface_port">+</field>
+        <field name="#afferent_environment">+</field>
+        <field name="#efferent_environment">+</field>
+        <field name="#interface_model">+</field>
+        <field name="#service">+</field>
+        <field name="#message">+</field>
+        <field name="#RUMI">+</field>
+        <field name="#probe">+</field>
+        <field name="#security">+</field>
+      </block>
+    </statement>
+    <statement name="is_composed_of:subsystem">
+      <block type="__link" id="234">
+        <field name="link_to">CS / Kilobots</field>
+        <data>CS : 4 : 0</data>
+      </block>
+    </statement>
+  </block>
+  <block type="emergent_phenomenon$s" id="78" collapsed="true" x="0" y="1008">
+    <field name="name">platoon</field>
+    <field name="#behaviour">+</field>
+    <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. E1
+    </requirement>
+    <data>E1</data>
+    <statement name="causes:behaviour">
+      <block type="expected_and_beneficial_behaviour$i" id="79">
+        <field name="name">platooning</field>
+      </block>
+    </statement>
+  </block>
+  <block type="environment$s" id="35" collapsed="true" x="0" y="1063">
+    <field name="name">Whiteboard</field>
+    <field name="#situation_assessment">+</field>
+    <field name="#action">+</field>
+    <field name="#entity">+</field>
+    <field name="#state_variable">+</field>
+    <field name="#state_variable">+</field>
+    <field name="#system">+</field>
+    <field name="#evolution">+</field>
+    <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. A2
+2. A1
+    </requirement>
+    <data>A2,A1</data>
+    <statement name="has:entity">
+      <block type="thing$s" id="38" collapsed="true">
+        <field name="name">Obstacle 20x30</field>
+        <field name="#dynamicity">+</field>
+      </block>
+    </statement>
+    <statement name="has:state_variable">
+      <block type="state_variable$s" id="36" collapsed="true">
+        <field name="name">width</field>
+        <field name="value">  ?  </field>
+        <field name="#state">+</field>
+        <next>
+          <block type="state_variable$s" id="37" collapsed="true">
+            <field name="name">height</field>
+            <field name="value">  ?  </field>
+            <field name="#state">+</field>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="dynamic_interaction$s" id="88" collapsed="true" x="0" y="1118">
+    <field name="name">enterexit</field>
+    <field name="#interaction">+</field>
+    <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. D1
+    </requirement>
+    <data>D1</data>
+    <statement name="variation_to:interaction">
+      <block type="interaction$s" id="89" collapsed="true">
+        <field name="name">leave</field>
+        <field name="transferred_information">  ?  </field>
+        <field name="temporal_property">  ?  </field>
+        <field name="dependability_requirement">  ?  </field>
+        <field name="#information">+</field>
+        <statement name="exchanges:information">
+          <block type="information$i" id="90" collapsed="true">
+            <field name="name">Leaving platooning</field>
+            <field name="#message">+</field>
+            <statement name="is_transmitted_by:message">
+              <block type="__link" id="95">
+                <field name="link_to">Message / LEAVE</field>
+                <data>message : 59 : 1</data>
+              </block>
+            </statement>
+          </block>
+        </statement>
+        <next>
+          <block type="interaction$s" id="99" collapsed="true">
+            <field name="name">join</field>
+            <field name="transferred_information">  ?  </field>
+            <field name="temporal_property">  ?  </field>
+            <field name="dependability_requirement">  ?  </field>
+            <field name="#information">+</field>
+            <statement name="exchanges:information">
+              <block type="information$i" id="100">
+                <field name="name">join</field>
+                <field name="#message">+</field>
+                <statement name="is_transmitted_by:message">
+                  <block type="__link" id="101">
+                    <field name="link_to">Message / JOIN</field>
+                    <data>message : 60 : 1</data>
+                  </block>
+                </statement>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="dynamic_service$s" id="296" x="0" y="1173">
+    <field name="name">loadprg</field>
+    <field name="#service">+</field>
+    <statement name="variation_to:service">
+      <block type="service$s" id="297" collapsed="true">
+        <field name="name">load_prg</field>
+        <field name="#state_variable">+</field>
+      </block>
+    </statement>
+  </block>
+</xml>
