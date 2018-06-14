@@ -28,10 +28,6 @@
 
 REGISTER_USERDATA(USERDATA)
 
-// declare constants
-static const uint8_t TOOCLOSE_DISTANCE = 40; // 40 mm
-static const uint8_t DESIRED_DISTANCE = 60; // 60 mm
-
 
 
 void message_rx(message_t *m, distance_measurement_t *d) {
@@ -40,13 +36,11 @@ void message_rx(message_t *m, distance_measurement_t *d) {
     mydata->dist = *d;
 }
 
-void setup_message(void)
+void setup_message(uint8_t data)
 {
   mydata->transmit_msg.type = NORMAL;
   mydata->transmit_msg.data[0] = kilo_uid & 0xff; //low byte of ID, currently not really used for anything
-  mydata->transmit_msg.data[1] = JOIN;
-
-  //finally, calculate a message check sum
+  mydata->transmit_msg.data[1] = data;
   mydata->transmit_msg.crc = message_crc(&mydata->transmit_msg);
 }
 
@@ -68,16 +62,11 @@ void setup()
 
 
 void sendJoinMessage(){
-	setup_message();
+	setup_message(JOIN);
 }
 
 void sendOk(){
-  mydata->transmit_msg.type = NORMAL;
-  mydata->transmit_msg.data[0] = kilo_uid & 0xff; //low byte of ID, currently not really used for anything
-  mydata->transmit_msg.data[1] = OK;
-
-  //finally, calculate a message check sum
-  mydata->transmit_msg.crc = message_crc(&mydata->transmit_msg);
+  setup_message(OK);
   printf("Sent OK\n");
 	
 }
@@ -135,8 +124,6 @@ void loop() {
 int main() {
     kilo_init();
     kilo_message_rx = message_rx;
-    
-    // bot 0 is stationary and transmits messages. Other bots orbit around it.
     if (kilo_uid == 0)
       kilo_message_tx = message_tx;
     
