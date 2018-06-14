@@ -94,15 +94,16 @@ void waitForOk(){
 void loop() {
     
     // Platooning is stationary. Other bot searches for it and asks to join its tail
-    if (kilo_uid == 0){
-		waitForJoin();
-	} else 
+    if (kilo_uid == 0)
     {
-		if (kilo_ticks <32)
+	waitForJoin();
+    } else 
+    {
+	if (kilo_ticks <32)
         {
-			spinup_motors();
-			return;
-		}
+		spinup_motors();
+		return;
+	}
         if(mydata->received_okjoin==0)
         {
             set_motors(kilo_turn_left,kilo_turn_right);
