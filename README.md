@@ -1,8 +1,8 @@
 # drtcps
 Final project DRTCPS: Blockly4Sos - Kilombo
 
-Requirements Definitions: Todo
+Requirements Definitions: Almost done
 
-Kilombo Implementation: Todo
+Kilombo Implementation: Ask/Answer and Stop when distance is <= 50 mm
 
-Kilobot Implementation: Todo
+Kilobot Implementation: Just ask/answer
