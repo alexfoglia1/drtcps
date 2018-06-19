@@ -121,19 +121,81 @@ Universit\`a di Firenze \\ % Your institution for the title page
 \begin{frame}
 \frametitle{Viewpoint Architecture}
 Environment:
-	\begin{itemize}
-		\item AE-1: req1.1
-	\end{itemize}
+	\begin{enumerate}[align=left]
+		\item [AE-1:] The kilobots shall operate on a whiteboard.
+		\item [AE-2:] An obstacle shall be located in the middle of the whiteboard
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}
 \frametitle{Viewpoint Architecture}
 SoS Organization:
-\begin{itemize}
-	\item ASoS-1: req1.1
-\end{itemize}
+
+\begin{enumerate}[align=left]
+	\item[ASoS-1:] The SoS is composed by N kilobots
+	\item  [ASoS-2:] The SoS is also composed by a controller that loads the program in kilobots memory
+	\item [ASoS-3:] The SoS shall be a platooning among the kilobots composing the SoS
+	\item [ASoS-4:] When the SoS starts, kilobots shall be positioned in a straight line, at a distance of D cm
+	\item [ASoS-5:] When the SoS operates, distance betweeen kilobots shall be mantained approximately D cm
+	\item [ASoS-6:] The leader is decided before execution
+	\item [ASoS-7:] All kilobots shall know leader's ID
+\end{enumerate}
 \end{frame}
 
+\begin{frame}
+\frametitle{Viewpoint Communication}
+CS-Level:
+
+\begin{enumerate}[align=left]
+	\item[CCS-1:] Each kilobot has a RUMI to exchange messages among each other
+	\item[CCS-2:] Each kilobot has a RUMI to communicate with the controller
+	\item[CCS-3:] Controller has a RUMI to communicate with kilobots
+	\item[CCS-4:] Each kilobot has a RUPI to estimate distances
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Communication}
+SoS-Level:
+
+\begin{enumerate}[align=left]
+	\item[CSoS-1:] Each kilobot shall use its RUMI to exchange informations about:
+	\begin{itemize}
+		\item Direction
+		\item When it is Joining the platoon
+		\item When it is Leaving the platoon
+	\end{itemize}
+	\item[CSoS-2:] When the SoS starts, each kilobot notifies to his adjacent follower he is his leader, by transmitting a message
+	\item[CSoS-3:] Each kilobot has a RUPI to estimate distance betweeen sender and receiver
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Emergence}
+\begin{enumerate}[align=left]
+	\item[E-1:] The interaction of mutiple kilobots shall originate a unique platoon
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Dinamicity}
+\begin{enumerate}[align=left]
+	\item[D-1:] The platoon shall allow any kilobot to enter the platoon
+	\item[D-2:] The platoon shall be composed of at least 2 kilobots
+	\item[D-3:] The introduction of a kilobot in the platoon shall be allowed only at its tail
+	\item[D-4:] The platoon shall allow any kilobot to leave the platoon
+	\item[D-5:] If a leader kilobot is leaving the platoon, the immediate follower shall become leader
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Time}
+\begin{enumerate}[align=left]
+	\item[T-1:] Kilobot shall measure time according to a local clock
+	\item[T-2:] Timely-related events shall be triggered by message exchange 
+	\item[T-3:] When a kilobot starts shall prepare motors for M ms
+\end{enumerate}
+\end{frame}
 
 \end{document}
               
