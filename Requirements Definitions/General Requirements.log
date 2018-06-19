@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.8)  19 JUN 2018 16:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.8)  19 JUN 2018 16:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -974,17 +974,17 @@ LaTeX Font Warning: Size substitutions with differences
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 200.
  ) 
 Here is how much of TeX's memory you used:
- 16755 strings out of 493029
- 322894 string characters out of 6136234
+ 16761 strings out of 493029
+ 322942 string characters out of 6136234
  391929 words of memory out of 5000000
- 19894 multiletter control sequences out of 15000+600000
+ 19900 multiletter control sequences out of 15000+600000
  5757 words of font info for 21 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,16n,57p,402b,557s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb>
-Output written on "General Requirements.pdf" (9 pages, 57343 bytes).
+Output written on "General Requirements.pdf" (9 pages, 57402 bytes).
 PDF statistics:
  283 PDF objects out of 1000 (max. 8388607)
  254 compressed objects within 3 object streams
