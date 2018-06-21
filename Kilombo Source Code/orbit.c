@@ -25,6 +25,8 @@
 
 #define JOIN 1
 #define OK 2
+#define LEFT 3
+#define STRAIGHT 0
 
 REGISTER_USERDATA(USERDATA)
 
@@ -53,11 +55,16 @@ void setup()
 {
   mydata->cur_distance = 0;
   mydata->new_message = 0;
+  mydata->turning = 0;
   mydata->received_okjoin=0;
-  if (kilo_uid == 0)
-    set_color(RGB(0,0,0)); // color of the stationary bot
-  else
-    set_color(RGB(3,0,0)); // color of the moving bot
+  if (kilo_uid == 0){
+    set_color(RGB(3,0,0)); // color of the leader
+    mydata->leader_id = 0;
+    }
+  else{
+    mydata->leader_id = kilo_uid-1;
+    set_color(RGB(0,0,0)); // color of the moving bot
+    }
 }
 
 
@@ -90,46 +97,96 @@ void waitForOk(){
         
 	}
 }
+void doLeader(){
+    int ticksm = kilo_ticks % 850;
+    if(ticksm <= 850-128){
+        set_motors(kilo_turn_left,kilo_turn_right);
+        setup_message(STRAIGHT);
+    }
+    else{
+        set_motors(kilo_turn_left,0);
+        if(ticksm > 850-25)
+            setup_message(LEFT);
+    }
 
-void loop() {
-    
-    // Platooning is stationary. Other bot searches for it and asks to join its tail
-    if (kilo_uid == 0)
-    {
-	waitForJoin();
-    } else 
-    {
-	if (kilo_ticks <32)
+
+}
+
+int passedFourSeconds(){
+
+    if(kilo_ticks - mydata->rcv_ticks < 160) return 0;
+    else return 1;
+
+
+}
+
+int passedOneSecond(){
+
+    if(kilo_ticks - mydata->rcv_ticks < 50) return 0;
+    else return 1;
+
+
+}
+
+void turn_and_send(uint8_t rcv){
+    if(rcv == LEFT || mydata->turning){
+        printf("rcv = %d\n",rcv);
+        printf("turning = %d\n",mydata->turning);
+        printf("kiloticks attuali = %d\n",kilo_ticks);
+        printf("Differenza = %d\n",kilo_ticks-mydata->rcv_ticks);
+        printf("passed four seconds = %d\n",passedFourSeconds());
+        if(passedOneSecond()==0) return;
+        if(passedFourSeconds()==0)
         {
-		spinup_motors();
-		return;
-	}
-        if(mydata->received_okjoin==0)
-        {
-            set_motors(kilo_turn_left,kilo_turn_right);
-            sendJoinMessage();
-            waitForOk();
+            set_motors(kilo_turn_left,0); 
+            printf("STO GIRANDO A SX\n");
+            setup_message(LEFT);
         }
         else
         {
-            waitForOk();
-            if(mydata->cur_distance<=50)
-                 set_motors(0,0);
-            else
-                set_motors(kilo_turn_left,kilo_turn_right);
-        }        
-	}
+            mydata->turning = 0;
+        }
+    }
+    else{
+        set_motors(kilo_turn_left,kilo_turn_right);
+        setup_message(STRAIGHT);
+    }
+    
+
+}
+
+void doFollower(){
+    if(mydata->new_message && mydata->received_msg.data[0] == mydata->leader_id)
+    {
+        uint8_t rcv = mydata->received_msg.data[1];
+        if(mydata->turning == 0 && rcv == LEFT){
+            mydata->rcv_ticks = kilo_ticks;
+            printf("Kiloticks quando ho ricevuto left la prima volta: %d\n",mydata->rcv_ticks);
+            mydata->turning =1;
+        }
+        turn_and_send(rcv);
+    }
+    mydata->new_message=0;
+}
+void loop() {
+    
+   if(kilo_ticks < 32){
+        spinup_motors();
+        return;
+    }
+    
+    if(kilo_uid == 0)
+        doLeader();
+    else
+        doFollower();
     
 }
 
 int main() {
     kilo_init();
     kilo_message_rx = message_rx;
-    if (kilo_uid == 0)
-      kilo_message_tx = message_tx;
-    
+    kilo_message_tx = message_tx;
     kilo_start(setup, loop);
-
     return 0;
 }
 

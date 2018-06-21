@@ -23,12 +23,15 @@ typedef enum {
 typedef struct 
 {
   orbit_state_t orbit_state;
+  uint8_t turning;
+  int rcv_ticks;
   uint8_t cur_distance;
   uint8_t new_message;
   distance_measurement_t dist;
   message_t received_msg;
   message_t transmit_msg;
   uint8_t received_okjoin;
+  uint8_t leader_id;
 } USERDATA;
 
 
