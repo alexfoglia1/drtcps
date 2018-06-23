@@ -54,6 +54,7 @@ message_t *message_tx() {
 }
 
 void setup() {
+	mydata->doing_turning = 0;
 	mydata->cur_distance = 0;
 	mydata->new_message = 0;
 	mydata->turning = 0;
@@ -97,16 +98,24 @@ int handleMessage() {
 }
 
 int handleTurnLeft(int turning) {
-	if (kilo_ticks - mydata->message_timestamp <= 348) {
+	if (kilo_ticks - mydata->message_timestamp <= 348 && mydata->doing_turning == 0) {
 		set_motors(kilo_turn_left,kilo_turn_right);
 		setup_message(STRAIGHT);
 		return 1;
-	} else if (kilo_ticks - mydata->message_timestamp > 348 && kilo_ticks - mydata->message_timestamp < 348+TURN_LEFT_DELAY){
+	} else if (kilo_ticks - mydata->message_timestamp > 348 && mydata->doing_turning == 0){
+		set_motors(kilo_turn_left, 0);
+		setup_message(LEFT);
+		mydata->doing_turning = 1;
+		mydata->message_timestamp = kilo_ticks;		
+		return 1;
+	} else if (mydata->doing_turning == 1 && kilo_ticks - mydata->message_timestamp < TURN_LEFT_DELAY) {
 		set_motors(kilo_turn_left, 0);
 		setup_message(LEFT);
 		return 1;
+	} else {
+		mydata->doing_turning = 0;
+		return 0;
 	}
-	return 0;
 }
 
 void follower() {
@@ -125,10 +134,13 @@ void follower() {
 
 
 void loop() {
+
+	if (kilo_ticks < 64){} else {
 	if (kilo_uid == 0) {
 		leader();
 	} else {
 		follower();
+	}
 	}
 }
 

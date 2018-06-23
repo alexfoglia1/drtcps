@@ -30,6 +30,7 @@ typedef struct {
 	uint8_t my_leader;
 	int message_timestamp;
 	int turning;
+	short doing_turning;
 } USERDATA;
 
 

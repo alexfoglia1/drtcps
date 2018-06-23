@@ -100,7 +100,7 @@ void waitForOk(){
 void doLeader(){
     int ticksm = kilo_ticks % 850;
     if(ticksm <= 850-128){
-        set_motors(kilo_turn_left,kilo_turn_right);
+        set_motors(50,50);
         setup_message(STRAIGHT);
     }
     else{
