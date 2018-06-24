@@ -1,0 +1,201 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%   PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+%\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+%\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+
+%----------------------------------------------------------------------------------------
+%   TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Kilobot Platooning - General Requirements]{Lab. Distributed Real Time Cyberphysical Systems\\Kilobot Plaotoning - General Requirements Definition} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Francesco Terrosi \\Alex Foglia} % Your name
+\institute[UNIFI] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Universit\`a di Firenze \\ % Your institution for the title page
+}
+\date{14/05/2018} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Viewpoints}
+\begin{itemize}
+	\item Architecture:
+	\begin{itemize}
+		\item Environment
+		\item SoS Organization
+	\end{itemize}
+	\item Communication:
+	\begin{itemize}
+		\item CS-Level
+		\item SoS-Level
+	\end{itemize}
+	\item Emergence
+	\item Dinamicity
+	\item Time
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Architecture}
+Environment:
+	\begin{enumerate}[align=left]
+		\item [AE-1:] The kilobots shall operate on a whiteboard.
+		\item [AE-2:] An obstacle shall be located in the middle of the whiteboard
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Architecture}
+SoS Organization:
+
+\begin{enumerate}[align=left]
+	\item[ASoS-1:] The SoS is composed by N kilobots
+	\item  [ASoS-2:] The SoS is also composed by a controller that loads the program in kilobots memory
+	\item [ASoS-3:] The SoS shall be a platooning among the kilobots composing the SoS
+	\item [ASoS-4:] When the SoS starts, kilobots shall be positioned in a straight line, at a distance of D cm
+	\item [ASoS-5:] When the SoS operates, distance betweeen kilobots shall be mantained approximately D cm
+	\item [ASoS-6:] The leader is decided before execution
+	\item [ASoS-7:] All kilobots shall know leader's ID
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Communication}
+CS-Level:
+
+\begin{enumerate}[align=left]
+	\item[CCS-1:] Each kilobot has a RUMI to exchange messages among each other
+	\item[CCS-2:] Each kilobot has a RUMI to communicate with the controller
+	\item[CCS-3:] Controller has a RUMI to communicate with kilobots
+	\item[CCS-4:] Each kilobot has a RUPI to estimate distances
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Communication}
+SoS-Level:
+
+\begin{enumerate}[align=left]
+	\item[CSoS-1:] Each kilobot shall use its RUMI to exchange informations about:
+	\begin{itemize}
+		\item Direction
+		\item When it is Joining the platoon
+		\item When it is Leaving the platoon
+	\end{itemize}
+	\item[CSoS-2:] When the SoS starts, each kilobot notifies to his adjacent follower he is his leader, by transmitting a message
+	\item[CSoS-3:] Each kilobot has a RUPI to estimate distance betweeen sender and receiver using signal power
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Emergence}
+\begin{enumerate}[align=left]
+	\item[E-1:] The interaction of mutiple kilobots shall originate a unique platoon
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Dinamicity}
+\begin{enumerate}[align=left]
+	\item[D-1:] The platoon shall allow any kilobot to enter the platoon
+	\item[D-2:] The platoon shall be composed of at least 2 kilobots
+	\item[D-3:] The introduction of a kilobot in the platoon shall be allowed only at its tail
+	\item[D-4:] The platoon shall allow any kilobot to leave the platoon
+	\item[D-5:] If a leader kilobot is leaving the platoon, the immediate follower shall become leader
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Viewpoint Time}
+\begin{enumerate}[align=left]
+	\item[T-1:] Kilobot shall measure time according to a local clock
+	\item[T-2:] Timely-related events shall be triggered by message exchange 
+	\item[T-3:] When a kilobot starts shall prepare motors for M ms
+\end{enumerate}
+\end{frame}
+
+\end{document}
+              
