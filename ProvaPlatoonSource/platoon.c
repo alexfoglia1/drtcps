@@ -31,6 +31,10 @@
 #define OK 5
 #define TURN_LEFT_DELAY 126
 #define GO_STRAIGHT_DELAY 700
+#define STANDARD_DISTANCE 80
+#define SLOW_SPEED 70
+#define NORMAL_SPEED 80
+#define CRAZY_SPEED 90
 
 REGISTER_USERDATA(USERDATA)
 
@@ -57,6 +61,7 @@ void setup() {
 	mydata->cur_distance = 0;
 	mydata->new_message = 0;
 	mydata->turning = 0;
+	mydata->follower_id = kilo_uid+1;
 	if (kilo_uid == 0)
 		set_color(RGB(0,0,0)); // color of the stationary bot
 	else {
@@ -70,11 +75,21 @@ void setup() {
 // LEADER CODE
 /*********************************************************************/
 
+void checkDistance() {
+	if (mydata->new_message && mydata->received_msg.data[0] == mydata->follower_id) {
+		if (estimate_distance(&mydata->dist) > STANDARD_DISTANCE+3)
+			set_motors(SLOW_SPEED,SLOW_SPEED);
+		if (estimate_distance(&mydata->dist) < STANDARD_DISTANCE-3)
+			set_motors(CRAZY_SPEED,CRAZY_SPEED);
+	}
+}
+
 void leader() {
 	mydata->myClock = kilo_ticks%(GO_STRAIGHT_DELAY+TURN_LEFT_DELAY);
+	checkDistance();
 	if (mydata->myClock < GO_STRAIGHT_DELAY) {
-		set_motors(kilo_turn_left,kilo_turn_right);
 		setup_message(STRAIGHT);
+		set_motors(NORMAL_SPEED,NORMAL_SPEED);
 	} else {
 		setup_message(LEFT);
 		set_motors(kilo_turn_left, 0);
@@ -89,6 +104,7 @@ void leader() {
 /*********************************************************************/
 
 int handleMessage() {
+	checkDistance();
 	if (mydata->new_message && mydata->received_msg.data[0] == mydata->my_leader) {
 		return mydata->received_msg.data[1];
 	}
@@ -97,15 +113,16 @@ int handleMessage() {
 
 int handleTurnLeft() {
 	if (kilo_ticks - mydata->message_timestamp < 346) {
-		set_motors(kilo_turn_left,kilo_turn_right);
 		setup_message(STRAIGHT);
+		set_motors(NORMAL_SPEED,NORMAL_SPEED);
 		return 1;
 	} else if (kilo_ticks - mydata->message_timestamp >= 346 && kilo_ticks - mydata->message_timestamp < 346+TURN_LEFT_DELAY){
-		set_motors(kilo_turn_left, 0);
 		setup_message(LEFT);
+		set_motors(kilo_turn_left, 0);
 		return 1;
 	} else {
-		set_motors(kilo_turn_left,kilo_turn_right);
+		setup_message(STRAIGHT);
+		set_motors(NORMAL_SPEED,NORMAL_SPEED);
 		return 0;
 	}
 }
@@ -117,8 +134,8 @@ void follower() {
 		mydata->turning = 1;
 	}
 	if (mydata->turning == 0 && message == STRAIGHT) {
-		set_motors(kilo_turn_left,kilo_turn_right);
 		setup_message(STRAIGHT);
+		set_motors(kilo_turn_left,kilo_turn_right);
 	} else if (mydata->turning == 1) {
 		mydata->turning = handleTurnLeft();
 	}
