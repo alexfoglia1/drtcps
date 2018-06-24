@@ -34,9 +34,7 @@
 #define TURN_LEFT_DELAY 126
 #define GO_STRAIGHT_DELAY 700
 #define STANDARD_DISTANCE 80
-#define SLOW_SPEED 70
-#define NORMAL_SPEED 80
-#define CRAZY_SPEED 90
+#define NORMAL_SPEED 70
 
 REGISTER_USERDATA(USERDATA)
 
@@ -90,20 +88,15 @@ int checkDistance() {
 void leader() {
 	mydata->myClock = kilo_ticks%(GO_STRAIGHT_DELAY+TURN_LEFT_DELAY);
 	int distance = checkDistance();
-	if (mydata->myClock < GO_STRAIGHT_DELAY-346) {
+	if (mydata->myClock < GO_STRAIGHT_DELAY) {
 		if (distance == SPEED_DOWN)
-			set_motors(SLOW_SPEED,SLOW_SPEED);
-		else if (distance == SPEED_UP)
-			set_motors(CRAZY_SPEED,CRAZY_SPEED);
+			set_motors(0,0);
 		else
-			set_motors(NORMAL_SPEED,NORMAL_SPEED);
+			set_motors(kilo_turn_left,kilo_turn_right);
 		setup_message(STRAIGHT);
-	} else if (mydata->myClock >= GO_STRAIGHT_DELAY -346 && mydata->myClock < GO_STRAIGHT_DELAY){
-		set_motors(NORMAL_SPEED,NORMAL_SPEED);
-		setup_message(STRAIGHT);	
 	} else {
 		setup_message(LEFT);
-		set_motors(NORMAL_SPEED, 0);	
+		set_motors(kilo_turn_left, 0);	
 	}
 }
 
@@ -124,15 +117,15 @@ int handleMessage() {
 int handleTurnLeft() {
 	if (kilo_ticks - mydata->message_timestamp < 346) {
 		setup_message(STRAIGHT);
-		set_motors(NORMAL_SPEED,NORMAL_SPEED);
+		set_motors(kilo_turn_left,kilo_turn_right);
 		return 1;
 	} else if (kilo_ticks - mydata->message_timestamp >= 346 && kilo_ticks - mydata->message_timestamp < 346+TURN_LEFT_DELAY){
 		setup_message(LEFT);
-		set_motors(NORMAL_SPEED, 0);
+		set_motors(kilo_turn_left, 0);
 		return 1;
 	} else {
 		setup_message(STRAIGHT);
-		set_motors(NORMAL_SPEED,NORMAL_SPEED);
+		set_motors(kilo_turn_left, kilo_turn_right);
 		return 0;
 	}
 }
@@ -146,11 +139,9 @@ void follower() {
 	}
 	if (mydata->turning == 0 && message == STRAIGHT) {
 		if (distance == SPEED_DOWN)
-			set_motors(SLOW_SPEED,SLOW_SPEED);
-		else if (distance == SPEED_UP)
-			set_motors(CRAZY_SPEED,CRAZY_SPEED);
+			set_motors(0,0);
 		else
-			set_motors(NORMAL_SPEED,NORMAL_SPEED);
+			set_motors(kilo_turn_left, kilo_turn_right);
 		setup_message(STRAIGHT);
 	} else if (mydata->turning == 1) {
 		mydata->turning = handleTurnLeft();
