@@ -30,7 +30,7 @@
 #define QUIT 4
 #define OK 5
 #define TURN_LEFT_DELAY 126
-#define GO_STRAIGHT_DELAY 480
+#define GO_STRAIGHT_DELAY 700
 
 REGISTER_USERDATA(USERDATA)
 
@@ -57,7 +57,6 @@ void setup() {
 	mydata->cur_distance = 0;
 	mydata->new_message = 0;
 	mydata->turning = 0;
-	mydata->received_okjoin=0;
 	if (kilo_uid == 0)
 		set_color(RGB(0,0,0)); // color of the stationary bot
 	else {
@@ -72,8 +71,8 @@ void setup() {
 /*********************************************************************/
 
 void leader() {
-	int myClock = kilo_ticks%(GO_STRAIGHT_DELAY+TURN_LEFT_DELAY);
-	if (myClock < GO_STRAIGHT_DELAY) {
+	mydata->myClock = kilo_ticks%(GO_STRAIGHT_DELAY+TURN_LEFT_DELAY);
+	if (mydata->myClock < GO_STRAIGHT_DELAY) {
 		set_motors(kilo_turn_left,kilo_turn_right);
 		setup_message(STRAIGHT);
 	} else {
@@ -96,17 +95,19 @@ int handleMessage() {
 	return 0;
 }
 
-int handleTurnLeft(int turning) {
-	if (kilo_ticks - mydata->message_timestamp <= 348) {
+int handleTurnLeft() {
+	if (kilo_ticks - mydata->message_timestamp < 346) {
 		set_motors(kilo_turn_left,kilo_turn_right);
 		setup_message(STRAIGHT);
 		return 1;
-	} else if (kilo_ticks - mydata->message_timestamp > 348 && kilo_ticks - mydata->message_timestamp < 348+TURN_LEFT_DELAY){
+	} else if (kilo_ticks - mydata->message_timestamp >= 346 && kilo_ticks - mydata->message_timestamp < 346+TURN_LEFT_DELAY){
 		set_motors(kilo_turn_left, 0);
 		setup_message(LEFT);
 		return 1;
+	} else {
+		set_motors(kilo_turn_left,kilo_turn_right);
+		return 0;
 	}
-	return 0;
 }
 
 void follower() {
@@ -119,7 +120,7 @@ void follower() {
 		set_motors(kilo_turn_left,kilo_turn_right);
 		setup_message(STRAIGHT);
 	} else if (mydata->turning == 1) {
-		mydata->turning = handleTurnLeft(mydata->turning);
+		mydata->turning = handleTurnLeft();
 	}
 }
 

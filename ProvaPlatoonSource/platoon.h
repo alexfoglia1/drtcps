@@ -26,10 +26,11 @@ typedef struct {
 	distance_measurement_t dist;
 	message_t received_msg;
 	message_t transmit_msg;
-	uint8_t received_okjoin;
 	uint8_t my_leader;
 	int message_timestamp;
 	int turning;
+	int myClock;
+	int turn_timestamp;
 	short doing_turning;
 } USERDATA;
 
