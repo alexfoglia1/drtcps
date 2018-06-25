@@ -208,7 +208,7 @@ int checkJoin(){
         return 1;
     }
     if(mydata->joining){
- 	prepareToFollow();
+ 	    prepareToFollow();
         return 1;
     }
     if(kilo_ticks == LEAVE_TIME && kilo_uid == CAN_LEAVE) {
@@ -220,8 +220,8 @@ int checkJoin(){
        return 1;
     }
     if(handleOther() == JOIN) {
-	setup_message(OK);
-	return 1;
+	   setup_message(OK);
+	   return 1;
     }
     return 0;
 }
