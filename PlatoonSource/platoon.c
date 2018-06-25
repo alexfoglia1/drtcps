@@ -34,12 +34,13 @@
 #define SPEED_DOWN 7
 #define TURN_LEFT_DELAY 126
 #define GO_STRAIGHT_DELAY 700
-#define JOIN_DELAY 505
+#define JOIN_DELAY 200
 #define OK_DELAY 350
 #define FOLLOW_DELAY 220
 #define STANDARD_DISTANCE 80
 #define NORMAL_SPEED 70
-#define CAN_LEAVE 3
+#define CAN_LEAVE 2
+#define CAN_JOIN 3
 #define LEAVE_TIME 2500
 
 
@@ -68,14 +69,19 @@ void setup() {
 	mydata->cur_distance = 0;
 	mydata->new_message = 0;
 	mydata->turning = 0;
-    mydata->joining = 0;
-    mydata->following = 0;
+    	mydata->joining = 0;
+    	mydata->following = 0;
 	mydata->follower_id = kilo_uid+1;
+	if(kilo_uid == CAN_JOIN) mydata->my_leader = 255;
 	if (kilo_uid == 0)
 		set_color(RGB(0,0,0)); // color of the stationary bot
 	else {
 		set_color(RGB(3,0,0)); // color of the moving bot
 		mydata->my_leader = kilo_uid-1;
+	}
+	if(kilo_uid == CAN_JOIN){
+	mydata->leave_timestamp = LEAVE_TIME;
+	mydata->my_leader = 255;
 	}
 }
 
@@ -149,16 +155,14 @@ int handleTurnLeft() {
 void leave() {
     setup_message(LEAVE);
     mydata->my_leader = 255;
-    set_motors(kilo_turn_left,0);
+    set_color(RGB(0,3,0));
+    set_motors(kilo_turn_left,kilo_turn_right);
     mydata->leave_timestamp = kilo_ticks;
 }
 
 void join() {
-    if(kilo_ticks < mydata->leave_timestamp+JOIN_DELAY){
-
-        return;
-    }
-    set_motors(0,0);
+    if(kilo_ticks < mydata->leave_timestamp + JOIN_DELAY) return;
+    set_motors(kilo_turn_left,kilo_turn_right);
     setup_message(JOIN);
     if(mydata->new_message && mydata->received_msg.data[1] == OK)
     {
@@ -191,9 +195,10 @@ void follower() {
         leave();
         return;
     }
-    if(kilo_ticks > LEAVE_TIME && kilo_uid == CAN_LEAVE && mydata->my_leader == 255) {
-        join();
-        return;
+    if(kilo_ticks > LEAVE_TIME && kilo_uid == CAN_JOIN && mydata->my_leader == 255) {
+
+       join();
+       return;
     }
 	int distance = checkDistance();
 	int message = handleMessage();
