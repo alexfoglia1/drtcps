@@ -98,14 +98,18 @@ int checkDistance() {
 	return -1;
 }
 
+
+void speedCorrection(int distance){
+    if (distance == SPEED_DOWN)
+	set_motors(0,0);
+    else
+	set_motors(kilo_turn_left, kilo_turn_right);
+}
+
 void leader() {
 	mydata->myClock = kilo_ticks%(GO_STRAIGHT_DELAY+TURN_LEFT_DELAY);
-	int distance = checkDistance();
 	if (mydata->myClock < GO_STRAIGHT_DELAY) {
-		if (distance == SPEED_DOWN)
-			set_motors(0,0);
-		else
-			set_motors(kilo_turn_left,kilo_turn_right);
+		speedCorrection(checkDistance());
 		setup_message(STRAIGHT);
 	} else {
 		setup_message(LEFT);
@@ -184,42 +188,44 @@ void followPlatoon() {
 
 }
 
-void follower() {
+int checkJoin(){
     if(mydata->following){
         followPlatoon();
-        return;
+        return 1;
     }
     if(mydata->joining){
  	prepareToFollow();
-        return;
+        return 1;
     }
     if(kilo_ticks == LEAVE_TIME && kilo_uid == CAN_LEAVE) {
         leave();
-        return;
+        return 1;
     }
     if(kilo_ticks >= LEAVE_TIME + JOIN_DELAY && kilo_uid == CAN_JOIN && mydata->my_leader == 255) {
        join();
-       return;
+       return 1;
     }
     if(handleOther() == JOIN) {
 	setup_message(OK);
-	return;
+	return 1;
     }
-    int distance = checkDistance();
+    return 0;
+}
+
+
+void follower() {
+    if(checkJoin()) return;
     int message = handleMessage();
     if (mydata->turning == 0 && message == LEFT) {
 	mydata->message_timestamp = kilo_ticks;
 	mydata->turning = 1;
     }
     if (mydata->turning == 0 && message == STRAIGHT) {
-	if (distance == SPEED_DOWN)
-		set_motors(0,0);
-	else
-		set_motors(kilo_turn_left, kilo_turn_right);
+	speedCorrection(checkDistance());
 	setup_message(STRAIGHT);
-	} else if (mydata->turning == 1) {
-		mydata->turning = handleTurnLeft();
-	}
+    } else if (mydata->turning == 1) {
+	mydata->turning = handleTurnLeft();
+    }
 
 }
 
