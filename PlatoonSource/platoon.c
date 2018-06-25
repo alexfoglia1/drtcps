@@ -39,7 +39,7 @@
 #define FOLLOW_DELAY 220
 #define STANDARD_DISTANCE 80
 #define NORMAL_SPEED 70
-#define CAN_LEAVE 2
+#define CAN_LEAVE 3
 #define LEAVE_TIME 2500
 
 
