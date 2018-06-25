@@ -24,6 +24,10 @@
 //  #include "debug.h"
 #endif
 
+#define RED RGB(3,0,0)
+#define GREEN RGB(0,3,0)
+#define BLUE RGB(0,0,3)
+#define WHITE RGB(3,3,3)
 #define STRAIGHT 1
 #define LEFT 2
 #define JOIN 3
@@ -40,11 +44,9 @@
 #define CAN_LEAVE 2
 #define CAN_JOIN 3
 #define LEAVE_TIME 2500
-#define END_TIME 20000
+#define END_TIME 10000
 
 REGISTER_USERDATA(USERDATA)
-
-
 
 void message_rx(message_t *m, distance_measurement_t *d) {
     mydata->new_message = 1;
@@ -63,23 +65,27 @@ message_t *message_tx() {
   return &mydata->transmit_msg;
 }
 
-void setup() {
-	mydata->cur_distance = 0;
+void setupUserData(){
+    mydata->cur_distance = 0;
 	mydata->new_message = 0;
 	mydata->turning = 0;
-    	mydata->joining = 0;
-    	mydata->following = 0;
+    mydata->joining = 0;
+    mydata->following = 0;
 	mydata->follower_id = kilo_uid+1;
+}
+
+void setup() {
+	setupUserData();
 	if (kilo_uid == 0)
-		set_color(RGB(3,3,3)); // color of the leader bot
+		set_color(WHITE); // color of the leader bot
 	else if(kilo_uid == CAN_JOIN)
 	{
 		mydata->my_leader = 255;
-		set_color(RGB(0,0,3)); //color of the joining bot
+		set_color(BLUE); //color of the joining bot
 	}
-	else 
+	else
 	{
-		set_color(RGB(3,0,0)); // color of the moving bots
+		set_color(RED); // color of the moving bots
 		mydata->my_leader = kilo_uid-1;
 	}
 
@@ -138,12 +144,22 @@ int handleOther() {
     return 0;
 }
 
+int goStraight() {
+    return (kilo_ticks - mydata->message_timestamp < 346);
+}
+
+int goLeft() {
+    int timestamp_isok = (kilo_ticks - mydata->message_timestamp >= 346);
+    int passed_delay = kilo_ticks - mydata->message_timestamp < 346 +TURN_LEFT_DELAY;
+    return (timestamp_isok && passed_delay);
+}
+
 int handleTurnLeft() {
-	if (kilo_ticks - mydata->message_timestamp < 346) {
+	if (goStraight()) {
 		setup_message(STRAIGHT);
 		set_motors(kilo_turn_left,kilo_turn_right);
 		return 1;
-	} else if (kilo_ticks - mydata->message_timestamp >= 346 && kilo_ticks - mydata->message_timestamp < 346+TURN_LEFT_DELAY){
+	} else if (goLeft()){
 		setup_message(LEFT);
 		set_motors(kilo_turn_left, 0);
 		return 1;
@@ -157,7 +173,7 @@ int handleTurnLeft() {
 void leave() {
     setup_message(LEAVE);
     mydata->my_leader = 255;
-    set_color(RGB(0,3,0));
+    set_color(GREEN);
     set_motors(kilo_turn_left,kilo_turn_right);
 }
 
@@ -179,13 +195,11 @@ void prepareToFollow() {
 }
 
 void followPlatoon() {
-   if(kilo_ticks< mydata->follow_timestamp + FOLLOW_DELAY){
-        set_motors(kilo_turn_left,kilo_turn_right);
-   	set_color(RGB(3,0,0));
+   if(kilo_ticks< mydata->follow_timestamp + FOLLOW_DELAY) {
+       set_motors(kilo_turn_left,kilo_turn_right);
+   	   set_color(RED);
    }
-   else
-        mydata->following = 0;
-
+   else mydata->following = 0;
 }
 
 int checkJoin(){
@@ -217,14 +231,14 @@ void follower() {
     if(checkJoin()) return;
     int message = handleMessage();
     if (mydata->turning == 0 && message == LEFT) {
-	mydata->message_timestamp = kilo_ticks;
-	mydata->turning = 1;
+	    mydata->message_timestamp = kilo_ticks;
+	    mydata->turning = 1;
     }
     if (mydata->turning == 0 && message == STRAIGHT) {
-	speedCorrection(checkDistance());
-	setup_message(STRAIGHT);
+	    speedCorrection(checkDistance());
+	    setup_message(STRAIGHT);
     } else if (mydata->turning == 1) {
-	mydata->turning = handleTurnLeft();
+	    mydata->turning = handleTurnLeft();
     }
 
 }
