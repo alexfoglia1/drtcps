@@ -1,8 +1,18 @@
 language: c++
 
+sudo: required
+
 env:
   - DISPLAY=:99.0
-    
+install:
+  - sudo apt-get install build-essential git gcc-avr gdb-avr binutils-avr avr-libc avrdude libsdl1.2-dev libjansson-dev cmake check
+  - mkdir build
+  - cd build
+  - cmake ..
+  - sudo make install
+  - git clone https://github.com/acornejo/kilolib
+  - cd kilolib
+  - make
 script:
   - cd PlatoonSource
   - make
