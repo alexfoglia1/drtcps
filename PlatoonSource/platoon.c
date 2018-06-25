@@ -29,12 +29,19 @@
 #define JOIN 3
 #define QUIT 4
 #define OK 5
+#define LEAVE 6
 #define SPEED_UP 6
 #define SPEED_DOWN 7
 #define TURN_LEFT_DELAY 126
 #define GO_STRAIGHT_DELAY 700
+#define JOIN_DELAY 505
+#define OK_DELAY 350
+#define FOLLOW_DELAY 220
 #define STANDARD_DISTANCE 80
 #define NORMAL_SPEED 70
+#define CAN_LEAVE 2
+#define LEAVE_TIME 2500
+
 
 REGISTER_USERDATA(USERDATA)
 
@@ -61,6 +68,8 @@ void setup() {
 	mydata->cur_distance = 0;
 	mydata->new_message = 0;
 	mydata->turning = 0;
+    mydata->joining = 0;
+    mydata->following = 0;
 	mydata->follower_id = kilo_uid+1;
 	if (kilo_uid == 0)
 		set_color(RGB(0,0,0)); // color of the stationary bot
@@ -96,7 +105,7 @@ void leader() {
 		setup_message(STRAIGHT);
 	} else {
 		setup_message(LEFT);
-		set_motors(kilo_turn_left, 0);	
+		set_motors(kilo_turn_left, 0);
 	}
 }
 
@@ -112,6 +121,13 @@ int handleMessage() {
 		return mydata->received_msg.data[1];
 	}
 	return 0;
+}
+
+int handleOther() {
+    if(mydata->new_message && mydata->received_msg.data[0] != mydata->my_leader) {
+        return mydata->received_msg.data[1];
+    }
+    return 0;
 }
 
 int handleTurnLeft() {
@@ -130,13 +146,66 @@ int handleTurnLeft() {
 	}
 }
 
+void leave() {
+    setup_message(LEAVE);
+    mydata->my_leader = 255;
+    set_motors(kilo_turn_left,0);
+    mydata->leave_timestamp = kilo_ticks;
+}
+
+void join() {
+    if(kilo_ticks < mydata->leave_timestamp+JOIN_DELAY){
+
+        return;
+    }
+    set_motors(0,0);
+    setup_message(JOIN);
+    if(mydata->new_message && mydata->received_msg.data[1] == OK)
+    {
+        mydata->my_leader = mydata->received_msg.data[0];
+        mydata->joining = 1;
+        mydata->ok_timestamp = kilo_ticks;
+    }
+}
+
 void follower() {
+    if(mydata->following){
+        if(kilo_ticks< mydata->follow_timestamp + FOLLOW_DELAY)
+        {
+            set_motors(kilo_turn_left,kilo_turn_right);
+            return;
+        }
+        else
+            mydata->following = 0;
+        return;
+    }
+    if(mydata->joining){
+        if(kilo_ticks >= mydata->ok_timestamp + OK_DELAY){
+            mydata->follow_timestamp = kilo_ticks;
+            mydata->joining = 0;
+            mydata->following = 1;
+        }
+        return;
+    }
+    if(kilo_ticks == LEAVE_TIME && kilo_uid == CAN_LEAVE) {
+        leave();
+        return;
+    }
+    if(kilo_ticks > LEAVE_TIME && kilo_uid == CAN_LEAVE && mydata->my_leader == 255) {
+        join();
+        return;
+    }
 	int distance = checkDistance();
 	int message = handleMessage();
+    int message2 = handleOther();
 	if (mydata->turning == 0 && message == LEFT){
 		mydata->message_timestamp = kilo_ticks;
 		mydata->turning = 1;
 	}
+    if(message2 == JOIN){
+        setup_message(OK);
+        return;
+    }
 	if (mydata->turning == 0 && message == STRAIGHT) {
 		if (distance == SPEED_DOWN)
 			set_motors(0,0);
@@ -146,6 +215,7 @@ void follower() {
 	} else if (mydata->turning == 1) {
 		mydata->turning = handleTurnLeft();
 	}
+
 }
 
 
@@ -162,7 +232,7 @@ int main() {
     kilo_init();
     kilo_message_rx = message_rx;
     kilo_message_tx = message_tx;
-    
+
     kilo_start(setup, loop);
 
     return 0;

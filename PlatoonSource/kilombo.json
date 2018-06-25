@@ -1,7 +1,7 @@
 {
     "botName" : "Join Tail",
     "randSeed" : 1,
-    "nBots" : 2,
+    "nBots" : 3,
     "formation": "rline",
     "timeStep" : 0.0416666,
     "__note" : "0.04166 is 24 FPS which matches the movie frame rate",
