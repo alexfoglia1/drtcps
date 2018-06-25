@@ -1,18 +1,5 @@
-/* The planet orbit demonstration from the kilobotics-labs
- * https://www.kilobotics.com/labs#lab4-orbit
- *
- * Lightly modified to work in the simulator, in particular:
- * - mydata->variable for global variables
- * - callback function cb_botinfo() to report bot state back to the simulator for display
- * - spin-up motors only when required, using the helper function  smooth_set_motors()
- *
- * Modifications by Fredrik Jansson 2015
- */
-
 #include <math.h>
-
 #include <kilombo.h>
-
 #include "platoon.h"
 
 #ifdef SIMULATOR
@@ -20,8 +7,6 @@
 #include <stdlib.h>
 #else
 #include <avr/io.h>  // for microcontroller register defs
-//  #define DEBUG          // for printf to serial port
-//  #include "debug.h"
 #endif
 
 #define RED RGB(3,0,0)
@@ -44,7 +29,7 @@
 #define CAN_LEAVE 2
 #define CAN_JOIN 3
 #define LEAVE_TIME 2500
-#define END_TIME 10000
+#define END_TIME 20000
 
 REGISTER_USERDATA(USERDATA)
 
@@ -243,7 +228,12 @@ void follower() {
 
 }
 
+/*********************************************************************/
 
+
+
+// COMMON CODE
+/*********************************************************************/
 void loop() {
 	if(kilo_ticks >= END_TIME) {
 	    set_color(RGB(0,0,0));
