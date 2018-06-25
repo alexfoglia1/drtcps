@@ -40,7 +40,7 @@
 #define CAN_LEAVE 2
 #define CAN_JOIN 3
 #define LEAVE_TIME 2500
-
+#define END_TIME 20000
 
 REGISTER_USERDATA(USERDATA)
 
@@ -71,7 +71,7 @@ void setup() {
     	mydata->following = 0;
 	mydata->follower_id = kilo_uid+1;
 	if (kilo_uid == 0)
-		set_color(RGB(0,0,0)); // color of the stationary bot
+		set_color(RGB(3,3,3)); // color of the leader bot
 	else if(kilo_uid == CAN_JOIN)
 	{
 		mydata->my_leader = 255;
@@ -231,20 +231,25 @@ void follower() {
 
 
 void loop() {
-	if (kilo_uid == 0) {
-		leader();
-	} else {
-		follower();
+	if(kilo_ticks >= END_TIME) {
+	    set_color(RGB(0,0,0));
+	    set_motors(0,0);
+	}
+	else
+	{
+	    if (kilo_uid == 0) leader();
+	    else follower();
 	}
 }
 
+void initMessageFunctions(){
+    kilo_message_rx = message_rx;
+    kilo_message_tx = message_tx;
+}
 
 int main() {
     kilo_init();
-    kilo_message_rx = message_rx;
-    kilo_message_tx = message_tx;
-
+    initMessageFunctions();
     kilo_start(setup, loop);
-
     return 0;
 }
