@@ -1,2 +1,8 @@
+language: c++
+
+env:
+  - DISPLAY=:99.0
+    
 script:
-  make ./PlatoonSource
+  - make ./PlatoonSource
+
