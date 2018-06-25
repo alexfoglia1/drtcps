@@ -33,8 +33,6 @@ typedef struct {
 	int myClock;
 	int turn_timestamp;
 	int follower_id;
-    int leave_timestamp;
     int follow_timestamp;
-    int ok_timestamp;
 } USERDATA;
 
