@@ -235,12 +235,14 @@ void follower() {
 // COMMON CODE
 /*********************************************************************/
 void loop() {
+
 	if(kilo_ticks >= END_TIME) {
 	    set_color(RGB(0,0,0));
 	    set_motors(0,0);
 	}
 	else
 	{
+        if(kilo_ticks< 32) spinup_motors();
 	    if (kilo_uid == 0) leader();
 	    else follower();
 	}
