@@ -367,6 +367,18 @@ You may:
                             <field name="name">received_msg</field>
                             <field name="value">  ?  </field>
                             <field name="#state">+</field>
+                            <next>
+                              <block type="state_variable$s" id="321">
+                                <field name="name">is_turning</field>
+                                <field name="value">  ?  </field>
+                                <field name="#state">+</field>
+                                <statement name="describes_a:state">
+                                  <block type="state$s" id="323">
+                                    <field name="name">kilobot turning</field>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
                           </block>
                         </next>
                       </block>
@@ -386,11 +398,11 @@ You may:
       </block>
     </statement>
   </block>
-  <block type="sequence_diagram$s" id="227" x="20" y="46">
+  <block type="sequence_diagram$s" id="227" x="87" y="96">
     <field name="name">Platoon</field>
     <field name="#sub_sequence">+</field>
     <statement name="has:sub_sequence">
-      <block type="sub_sequence$s" id="230" collapsed="true">
+      <block type="sub_sequence$s" id="230">
         <field name="name">Start</field>
         <field name="#sequence">+</field>
         <statement name="has:sequence">
@@ -402,7 +414,7 @@ You may:
                 <field name="link_to">CS / Controller</field>
                 <data>CS : 2 : 1</data>
                 <next>
-                  <block type="__link" id="342">
+                  <block type="__link" id="319">
                     <field name="link_to">CS / Kilobot</field>
                     <data>CS : 3 : 1</data>
                   </block>
@@ -976,19 +988,45 @@ You may:
                                               </block>
                                             </statement>
                                             <statement name="on_success:sequence">
-                                              <block type="execute$s" id="528">
-                                                <field name="function"> sendOk</field>
+                                              <block type="While$s" id="326">
+                                                <field name="name">turn_check</field>
+                                                <field name="condition">==1</field>
                                                 <field name="#CS">+</field>
+                                                <field name="#state_variable">+</field>
+                                                <field name="#sequence">+</field>
                                                 <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
 -------------------------------------
 1. CSoS-1.5
                                                 </requirement>
+                                                <data>CSoS-1.5</data>
                                                 <statement name="cs:CS">
-                                                  <block type="__link" id="529">
+                                                  <block type="__link" id="327">
                                                     <field name="link_to">CS / Kilobot</field>
                                                     <data>CS : 3 : 1</data>
                                                   </block>
                                                 </statement>
+                                                <statement name="check_on:state_variable">
+                                                  <block type="__link" id="328">
+                                                    <field name="link_to">State variable / is_turning</field>
+                                                    <data>state_variable : 321 : 1</data>
+                                                  </block>
+                                                </statement>
+                                                <next>
+                                                  <block type="execute$s" id="528">
+                                                    <field name="function"> sendOk</field>
+                                                    <field name="#CS">+</field>
+                                                    <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. CSoS-1.5
+                                                    </requirement>
+                                                    <statement name="cs:CS">
+                                                      <block type="__link" id="529">
+                                                        <field name="link_to">CS / Kilobot</field>
+                                                        <data>CS : 3 : 1</data>
+                                                      </block>
+                                                    </statement>
+                                                  </block>
+                                                </next>
                                               </block>
                                             </statement>
                                             <statement name="on_failure:sequence">
@@ -1502,9 +1540,9 @@ You may:
                                               <block type="simple_requirement" id="508">
                                                 <field name="req_id">CSoS-1.5</field>
                                                 <field name="title">When a JOIN message is received, the receiver send an OK message iff it's not turning</field>
-                                                <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+                                                <requirement pinned="true" h="57.328125" w="170.296875">Satisfied by block(s) :
 --------------------------------
-1. Execute : null
+1. While : turn_check
                                                 </requirement>
                                                 <next>
                                                   <block type="simple_requirement" id="510">
