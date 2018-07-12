@@ -1,4 +1,70 @@
 <xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="environment$s" id="191" collapsed="true" x="587" y="-132">
+    <field name="name">Whiteboard</field>
+    <field name="#situation_assessment">+</field>
+    <field name="#action">+</field>
+    <field name="#entity">+</field>
+    <field name="#state_variable">+</field>
+    <field name="#state_variable">+</field>
+    <field name="#system">+</field>
+    <field name="#evolution">+</field>
+    <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. AE-1
+    </requirement>
+    <data>AE-1</data>
+    <statement name="has:entity">
+      <block type="__link" id="192">
+        <field name="link_to">CS / Controller</field>
+        <data>CS : 2 : 0</data>
+        <next>
+          <block type="__link" id="193">
+            <field name="link_to">CS / Kilobot</field>
+            <data>CS : 3 : 0</data>
+            <next>
+              <block type="thing$s" id="194" collapsed="true">
+                <field name="name">Obstacle</field>
+                <field name="#dynamicity">+</field>
+                <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. AE-2
+                </requirement>
+                <data>AE-2</data>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="has:state_variable">
+      <block type="state_variable$s" id="195">
+        <field name="name">width</field>
+        <field name="value">1000</field>
+        <field name="#state">+</field>
+        <next>
+          <block type="state_variable$s" id="196">
+            <field name="name">height</field>
+            <field name="value">1000</field>
+            <field name="#state">+</field>
+            <next>
+              <block type="state_variable$s" id="197">
+                <field name="name">obstacle width</field>
+                <field name="value">700</field>
+                <field name="#state">+</field>
+                <next>
+                  <block type="state_variable$s" id="198">
+                    <field name="name">obstacle height</field>
+                    <field name="value">700</field>
+                    <field name="#state">+</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
   <block type="SoS$s" id="1" x="1059" y="-98">
     <field name="name">Kilobot platooning</field>
     <field name="sos_type">acknowledged</field>
@@ -23,7 +89,7 @@ You may:
     </requirement>
     <data>ASoS-3</data>
     <statement name="is_composed_of:system">
-      <block type="CS$s" id="2" collapsed="true">
+      <block type="CS$s" id="2">
         <field name="cardinality">1</field>
         <field name="name">Controller</field>
         <field name="system_type">autonomous</field>
@@ -141,7 +207,7 @@ You may:
                   </block>
                 </statement>
                 <next>
-                  <block type="RUMI$s" id="63" collapsed="true">
+                  <block type="RUMI$s" id="63">
                     <field name="name">Message Exchange</field>
                     <field name="has_connection">FALSE</field>
                     <field name="#connecting_strategy">+</field>
@@ -199,6 +265,16 @@ You may:
 1. CSoS-2
                                     </requirement>
                                     <data>CSoS-2</data>
+                                    <next>
+                                      <block type="message$s" id="226" collapsed="true">
+                                        <field name="name">LOAD_PRGRM</field>
+                                        <field name="transport_type">PAR_message</field>
+                                        <field name="header">  ?  </field>
+                                        <field name="data_field">  ?  </field>
+                                        <field name="#message_classification">+</field>
+                                        <field name="#trailer">+</field>
+                                      </block>
+                                    </next>
                                   </block>
                                 </next>
                               </block>
@@ -211,30 +287,14 @@ You may:
                       <block type="__link" id="156">
                         <field name="link_to">RUMI / Message Exchange</field>
                         <data>RUMI : 63 : 0</data>
+                        <next>
+                          <block type="__link" id="235">
+                            <field name="link_to">RUMI / Kilobot program load</field>
+                            <data>RUMI : 65 : 0</data>
+                          </block>
+                        </next>
                       </block>
                     </statement>
-                    <next>
-                      <block type="RUMI$s" id="64" collapsed="true">
-                        <field name="name">Controller messaging</field>
-                        <field name="has_connection">FALSE</field>
-                        <field name="#connecting_strategy">+</field>
-                        <field name="#interface_specification">+</field>
-                        <field name="#interface_port">+</field>
-                        <field name="#afferent_environment">+</field>
-                        <field name="#efferent_environment">+</field>
-                        <field name="#interface_model">+</field>
-                        <field name="#service">+</field>
-                        <field name="#message">+</field>
-                        <field name="#RUMI">+</field>
-                        <field name="#probe">+</field>
-                        <field name="#security">+</field>
-                        <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
--------------------------------------
-1. CCS-2
-                        </requirement>
-                        <data>CCS-2</data>
-                      </block>
-                    </next>
                   </block>
                 </next>
               </block>
@@ -326,73 +386,7 @@ You may:
       </block>
     </statement>
   </block>
-  <block type="environment$s" id="191" collapsed="true" x="621" y="-17">
-    <field name="name">Whiteboard</field>
-    <field name="#situation_assessment">+</field>
-    <field name="#action">+</field>
-    <field name="#entity">+</field>
-    <field name="#state_variable">+</field>
-    <field name="#state_variable">+</field>
-    <field name="#system">+</field>
-    <field name="#evolution">+</field>
-    <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
--------------------------------------
-1. AE-1
-    </requirement>
-    <data>AE-1</data>
-    <statement name="has:entity">
-      <block type="__link" id="192">
-        <field name="link_to">CS / Controller</field>
-        <data>CS : 2 : 0</data>
-        <next>
-          <block type="__link" id="193">
-            <field name="link_to">CS / Kilobot</field>
-            <data>CS : 3 : 0</data>
-            <next>
-              <block type="thing$s" id="194" collapsed="true">
-                <field name="name">Obstacle</field>
-                <field name="#dynamicity">+</field>
-                <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
--------------------------------------
-1. AE-2
-                </requirement>
-                <data>AE-2</data>
-              </block>
-            </next>
-          </block>
-        </next>
-      </block>
-    </statement>
-    <statement name="has:state_variable">
-      <block type="state_variable$s" id="195">
-        <field name="name">width</field>
-        <field name="value">50</field>
-        <field name="#state">+</field>
-        <next>
-          <block type="state_variable$s" id="196">
-            <field name="name">height</field>
-            <field name="value">100</field>
-            <field name="#state">+</field>
-            <next>
-              <block type="state_variable$s" id="197">
-                <field name="name">obstacle width</field>
-                <field name="value">20</field>
-                <field name="#state">+</field>
-                <next>
-                  <block type="state_variable$s" id="198">
-                    <field name="name">obstacle height</field>
-                    <field name="value">30</field>
-                    <field name="#state">+</field>
-                  </block>
-                </next>
-              </block>
-            </next>
-          </block>
-        </next>
-      </block>
-    </statement>
-  </block>
-  <block type="sequence_diagram$s" id="227" x="-21" y="24">
+  <block type="sequence_diagram$s" id="227" x="20" y="46">
     <field name="name">Platoon</field>
     <field name="#sub_sequence">+</field>
     <statement name="has:sub_sequence">
@@ -452,6 +446,11 @@ You may:
                 <field name="#CS">+</field>
                 <field name="#state_variable">+</field>
                 <field name="#sequence">+</field>
+                <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. T-4
+                </requirement>
+                <data>T-4</data>
                 <statement name="cs:CS">
                   <block type="__link" id="140">
                     <field name="link_to">CS / Kilobot</field>
@@ -639,19 +638,29 @@ You may:
                               </block>
                             </statement>
                             <statement name="on_success:sequence">
-                              <block type="execute$s" id="151" collapsed="true">
-                                <field name="function">  goStraight</field>
+                              <block type="execute$s" id="522">
+                                <field name="function"> goStraight</field>
                                 <field name="#CS">+</field>
+                                <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. CSoS-1.2
+                                </requirement>
+                                <data>CSoS-1.2</data>
                                 <statement name="cs:CS">
-                                  <block type="__link" id="152">
+                                  <block type="__link" id="523">
                                     <field name="link_to">CS / Kilobot</field>
                                     <data>CS : 3 : 1</data>
                                   </block>
                                 </statement>
                                 <next>
-                                  <block type="execute$s" id="153" collapsed="true">
+                                  <block type="execute$s" id="153">
                                     <field name="function">  sendStraight</field>
                                     <field name="#CS">+</field>
+                                    <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. CSoS-1.2
+                                    </requirement>
+                                    <data>CSoS-1.2</data>
                                     <statement name="cs:CS">
                                       <block type="__link" id="155">
                                         <field name="link_to">CS / Kilobot</field>
@@ -663,7 +672,7 @@ You may:
                               </block>
                             </statement>
                             <statement name="on_failure:sequence">
-                              <block type="execute$s" id="164" collapsed="true">
+                              <block type="execute$s" id="164">
                                 <field name="function">doNothing</field>
                                 <field name="#CS">+</field>
                                 <statement name="cs:CS">
@@ -698,6 +707,11 @@ You may:
                                   <block type="execute$s" id="170">
                                     <field name="function">turnLeft</field>
                                     <field name="#CS">+</field>
+                                    <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. CSoS-1.1
+                                    </requirement>
+                                    <data>CSoS-1.1</data>
                                     <statement name="cs:CS">
                                       <block type="__link" id="171">
                                         <field name="link_to">CS / Kilobot</field>
@@ -708,6 +722,11 @@ You may:
                                       <block type="execute$s" id="172">
                                         <field name="function">sendLeft</field>
                                         <field name="#CS">+</field>
+                                        <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. CSoS-1.1
+                                        </requirement>
+                                        <data>CSoS-1.1</data>
                                         <statement name="cs:CS">
                                           <block type="__link" id="173">
                                             <field name="link_to">CS / Kilobot</field>
@@ -751,11 +770,11 @@ You may:
                                       </block>
                                     </statement>
                                     <statement name="on_success:sequence">
-                                      <block type="sub_sequence$s" id="233">
+                                      <block type="sub_sequence$s" id="233" collapsed="true">
                                         <field name="name">Leave</field>
                                         <field name="#sequence">+</field>
                                         <statement name="has:sequence">
-                                          <block type="If$s" id="114" collapsed="true">
+                                          <block type="If$s" id="114">
                                             <field name="name">canLeave</field>
                                             <field name="on_condition">== LAST_IN_PLATOON</field>
                                             <field name="#CS">+</field>
@@ -775,9 +794,14 @@ You may:
                                               </block>
                                             </statement>
                                             <statement name="on_success:sequence">
-                                              <block type="execute$s" id="352" collapsed="true">
+                                              <block type="execute$s" id="352">
                                                 <field name="function">sendLeave</field>
                                                 <field name="#CS">+</field>
+                                                <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. CSoS-1.3
+                                                </requirement>
+                                                <data>CSoS-1.3</data>
                                                 <statement name="cs:CS">
                                                   <block type="__link" id="353">
                                                     <field name="link_to">CS / Kilobot</field>
@@ -785,9 +809,14 @@ You may:
                                                   </block>
                                                 </statement>
                                                 <next>
-                                                  <block type="execute$s" id="354" collapsed="true">
+                                                  <block type="execute$s" id="354">
                                                     <field name="function">goAway</field>
                                                     <field name="#CS">+</field>
+                                                    <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. CSoS-1.3
+                                                    </requirement>
+                                                    <data>CSoS-1.3</data>
                                                     <statement name="cs:CS">
                                                       <block type="__link" id="355">
                                                         <field name="link_to">CS / Kilobot</field>
@@ -877,6 +906,11 @@ You may:
                                                       <block type="execute$s" id="135">
                                                         <field name="function">sendJoin</field>
                                                         <field name="#CS">+</field>
+                                                        <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. CSoS-1.4
+                                                        </requirement>
+                                                        <data>CSoS-1.4</data>
                                                         <statement name="cs:CS">
                                                           <block type="__link" id="136">
                                                             <field name="link_to">CS / Kilobot</field>
@@ -889,6 +923,12 @@ You may:
                                                       <block type="execute$s" id="120">
                                                         <field name="function"> joinPlatoon</field>
                                                         <field name="#CS">+</field>
+                                                        <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. CSoS-1.4
+2. CSoS-1.6
+                                                        </requirement>
+                                                        <data>CSoS-1.4,CSoS-1.6</data>
                                                         <statement name="cs:CS">
                                                           <block type="__link" id="129">
                                                             <field name="link_to">CS / Kilobot</field>
@@ -900,7 +940,7 @@ You may:
                                                   </block>
                                                 </statement>
                                                 <statement name="on_failure:sequence">
-                                                  <block type="execute$s" id="127" collapsed="true">
+                                                  <block type="execute$s" id="127">
                                                     <field name="function">doNothing</field>
                                                     <field name="#CS">+</field>
                                                     <statement name="cs:CS">
@@ -915,6 +955,56 @@ You may:
                                             </statement>
                                           </block>
                                         </statement>
+                                        <next>
+                                          <block type="If$s" id="525">
+                                            <field name="name">Send OK</field>
+                                            <field name="on_condition"> == JOIN</field>
+                                            <field name="#CS">+</field>
+                                            <field name="#state_variable">+</field>
+                                            <field name="#sequence">+</field>
+                                            <field name="#sequence">+</field>
+                                            <statement name="cs:CS">
+                                              <block type="__link" id="526">
+                                                <field name="link_to">CS / Kilobot</field>
+                                                <data>CS : 3 : 1</data>
+                                              </block>
+                                            </statement>
+                                            <statement name="check_on:state_variable">
+                                              <block type="__link" id="527">
+                                                <field name="link_to">State variable / received_msg</field>
+                                                <data>state_variable : 112 : 1</data>
+                                              </block>
+                                            </statement>
+                                            <statement name="on_success:sequence">
+                                              <block type="execute$s" id="528">
+                                                <field name="function"> sendOk</field>
+                                                <field name="#CS">+</field>
+                                                <requirement pinned="false" h="100" w="200">Satisfies requirement(s) :
+-------------------------------------
+1. CSoS-1.5
+                                                </requirement>
+                                                <statement name="cs:CS">
+                                                  <block type="__link" id="529">
+                                                    <field name="link_to">CS / Kilobot</field>
+                                                    <data>CS : 3 : 1</data>
+                                                  </block>
+                                                </statement>
+                                              </block>
+                                            </statement>
+                                            <statement name="on_failure:sequence">
+                                              <block type="execute$s" id="530">
+                                                <field name="function"> doNothing</field>
+                                                <field name="#CS">+</field>
+                                                <statement name="cs:CS">
+                                                  <block type="__link" id="531">
+                                                    <field name="link_to">CS / Controller</field>
+                                                    <data>CS : 2 : 1</data>
+                                                  </block>
+                                                </statement>
+                                              </block>
+                                            </statement>
+                                          </block>
+                                        </next>
                                       </block>
                                     </next>
                                   </block>
@@ -946,7 +1036,7 @@ You may:
       </block>
     </statement>
   </block>
-  <block type="requirements" id="8" x="1618" y="89">
+  <block type="requirements" id="8" x="2211" y="57">
     <statement name="Architecture_requirements">
       <block type="simple_requirement" id="12">
         <field name="req_id">AE-1</field>
@@ -1050,68 +1140,57 @@ You may:
     <statement name="Communication_requirements">
       <block type="simple_requirement" id="30">
         <field name="req_id">CCS-1</field>
-        <field name="title">RUMI kilobot-kilobot</field>
+        <field name="title">Kilobot RUMI</field>
         <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
 --------------------------------
 1. RUMI : Message Exchange
         </requirement>
         <data>63</data>
         <next>
-          <block type="simple_requirement" id="32">
-            <field name="req_id">CCS-2</field>
-            <field name="title">RUMI kilobot-controller</field>
+          <block type="simple_requirement" id="34">
+            <field name="req_id">CCS-3</field>
+            <field name="title">Controller RUMI</field>
             <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
 --------------------------------
-1. RUMI : Controller messaging
+1. RUMI : Kilobot program load
             </requirement>
-            <data>64</data>
+            <data>65</data>
             <next>
-              <block type="simple_requirement" id="34">
-                <field name="req_id">CCS-3</field>
-                <field name="title">RUMI controller-kilobot</field>
+              <block type="simple_requirement" id="36">
+                <field name="req_id">CCS-4</field>
+                <field name="title">RUPI kilobot</field>
                 <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
 --------------------------------
-1. RUMI : Kilobot program load
+1. RUPI : Calculate Distance
                 </requirement>
-                <data>65</data>
+                <data>61</data>
                 <next>
-                  <block type="simple_requirement" id="36">
-                    <field name="req_id">CCS-4</field>
-                    <field name="title">RUPI kilobot</field>
+                  <block type="simple_requirement" id="38">
+                    <field name="req_id">CSoS-1</field>
+                    <field name="title">kbot-kbot RUMI utilization</field>
                     <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
 --------------------------------
-1. RUPI : Calculate Distance
+1. RUMI : Message Exchange
                     </requirement>
-                    <data>61</data>
+                    <data>63</data>
                     <next>
-                      <block type="simple_requirement" id="38">
-                        <field name="req_id">CSoS-1</field>
-                        <field name="title">kbot-kbot RUMI utilization</field>
+                      <block type="simple_requirement" id="40">
+                        <field name="req_id">CSoS-2</field>
+                        <field name="title">Leader notification</field>
                         <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
 --------------------------------
-1. RUMI : Message Exchange
+1. Message : Leader Notify
                         </requirement>
-                        <data>63</data>
+                        <data>160</data>
                         <next>
-                          <block type="simple_requirement" id="40">
-                            <field name="req_id">CSoS-2</field>
-                            <field name="title">Leader notification</field>
+                          <block type="simple_requirement" id="42">
+                            <field name="req_id">CSoS-3</field>
+                            <field name="title">RUPI utilization</field>
                             <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
 --------------------------------
-1. Message : Leader Notify
-                            </requirement>
-                            <data>160</data>
-                            <next>
-                              <block type="simple_requirement" id="42">
-                                <field name="req_id">CSoS-3</field>
-                                <field name="title">RUPI utilization</field>
-                                <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
---------------------------------
 1. Thing : Signal
-                                </requirement>
-                                <data>166,167</data>
-                              </block>
-                            </next>
+                            </requirement>
+                            <data>166,167</data>
                           </block>
                         </next>
                       </block>
@@ -1160,17 +1239,6 @@ You may:
 1. Service : Leave
                     </requirement>
                     <data>242</data>
-                    <next>
-                      <block type="simple_requirement" id="54">
-                        <field name="req_id">D-5</field>
-                        <field name="title">Kilobot leaving rule</field>
-                        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
---------------------------------
-1. Service : Leave
-                        </requirement>
-                        <data>242</data>
-                      </block>
-                    </next>
                   </block>
                 </next>
               </block>
@@ -1216,6 +1284,17 @@ You may:
 --------------------------------
 1. Dependability guarantee : Motors spinup duration = 1000 ms
                 </requirement>
+                <next>
+                  <block type="simple_requirement" id="322">
+                    <field name="req_id">T-4</field>
+                    <field name="title">Platooning runs for a limited duration</field>
+                    <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. While : MainLoop
+                    </requirement>
+                    <data>139</data>
+                  </block>
+                </next>
               </block>
             </next>
           </block>
@@ -1223,7 +1302,343 @@ You may:
       </block>
     </statement>
   </block>
-  <block type="dynamic_service$s" id="238" x="1069" y="1023">
+  <block type="requirements" id="260" x="2858" y="46">
+    <statement name="Architecture_requirements">
+      <block type="simple_requirement" id="266">
+        <field name="req_id">AE-1</field>
+        <field name="title">Whiteboard 1000 x 1000</field>
+        <requirement pinned="false" h="57" w="197">Satisfied by block(s) :
+--------------------------------
+1. Environment : Whiteboard
+        </requirement>
+        <data>191</data>
+        <next>
+          <block type="simple_requirement" id="268">
+            <field name="req_id">AE-2</field>
+            <field name="title">Whiteboard obstacle 700 x 700</field>
+            <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Thing : Obstacle
+            </requirement>
+            <data>194</data>
+            <next>
+              <block type="simple_requirement" id="270">
+                <field name="req_id">ASoS-1</field>
+                <field name="title">4 Kilobots in total</field>
+                <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. CS : Kilobot
+                </requirement>
+                <data>3</data>
+                <next>
+                  <block type="simple_requirement" id="272">
+                    <field name="req_id">ASoS-2</field>
+                    <field name="title">1 Controller</field>
+                    <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. CS : Controller
+                    </requirement>
+                    <data>2</data>
+                    <next>
+                      <block type="simple_requirement" id="274">
+                        <field name="req_id">ASoS-3</field>
+                        <field name="title">3 Kilobots platooning</field>
+                        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. SoS : Kilobot platooning
+                        </requirement>
+                        <data>1</data>
+                        <next>
+                          <block type="simple_requirement" id="276">
+                            <field name="req_id">ASoS-4</field>
+                            <field name="title">Starting Position: Straight Line - Distance: 8 cm</field>
+                            <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Dependability guarantee : Starting Position = Straight line
+2. Dependability guarantee : Starting distance = 5 cm
+                            </requirement>
+                            <data>77,76</data>
+                            <next>
+                              <block type="simple_requirement" id="278">
+                                <field name="req_id">ASoS-5</field>
+                                <field name="title">Distance during execution: between 7 and 9</field>
+                                <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Dependability guarantee : Running distance = 5 cm
+                                </requirement>
+                                <data>75</data>
+                                <next>
+                                  <block type="simple_requirement" id="280">
+                                    <field name="req_id">ASoS-6</field>
+                                    <field name="title">The leader is the kilobot with id 0</field>
+                                    <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. State variable : leader_uid
+                                    </requirement>
+                                    <data>67</data>
+                                    <next>
+                                      <block type="simple_requirement" id="282">
+                                        <field name="req_id">ASoS-7</field>
+                                        <field name="title">All kilobots know the leader is the one with id 0</field>
+                                        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. State variable : leader_uid
+                                        </requirement>
+                                        <data>67</data>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="Communication_requirements">
+      <block type="simple_requirement" id="288">
+        <field name="req_id">CCS-1</field>
+        <field name="title">Kilobot RUMI connects kilobots and controller</field>
+        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. RUMI : Message Exchange
+        </requirement>
+        <data>63</data>
+        <next>
+          <block type="simple_requirement" id="290">
+            <field name="req_id">CCS-3</field>
+            <field name="title">Controller RUMI connects controller to kilobots</field>
+            <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. RUMI : Kilobot program load
+            </requirement>
+            <data>65</data>
+            <next>
+              <block type="simple_requirement" id="292">
+                <field name="req_id">CCS-4</field>
+                <field name="title">RUPI kilobot is used to calculate distance among kilobots</field>
+                <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. RUPI : Calculate Distance
+                </requirement>
+                <data>61</data>
+                <next>
+                  <block type="simple_requirement" id="294">
+                    <field name="req_id">CSoS-1</field>
+                    <field name="title">kbot-kbot RUMI used for sending direction messages</field>
+                    <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. RUMI : Message Exchange
+                    </requirement>
+                    <data>63</data>
+                    <next>
+                      <block type="simple_requirement" id="296">
+                        <field name="req_id">CSoS-2</field>
+                        <field name="title">Leader ID is hard-coded</field>
+                        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Message : Leader Notify
+2. Execute : null
+                        </requirement>
+                        <data>160,151</data>
+                        <next>
+                          <block type="simple_requirement" id="298">
+                            <field name="req_id">CSoS-3</field>
+                            <field name="title">RUPI uses signal strength to calculate distance</field>
+                            <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Thing : Signal
+                            </requirement>
+                            <data>166,167</data>
+                            <next>
+                              <block type="simple_requirement" id="500">
+                                <field name="req_id">CSoS-1.1</field>
+                                <field name="title">When a LEFT message is received, the receiver forwards the message to its follower and turn left for 126 kilo-ticks</field>
+                                <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Execute : null
+2. Execute : null
+                                </requirement>
+                                <data>170,172</data>
+                                <next>
+                                  <block type="simple_requirement" id="502">
+                                    <field name="req_id">CSoS-1.2</field>
+                                    <field name="title">When a STRAIGHT message is received, the receiver forwards the message to its follower and goes straight for 700 kilo-ticks</field>
+                                    <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Execute : null
+2. Execute : null
+                                    </requirement>
+                                    <data>522,153</data>
+                                    <next>
+                                      <block type="simple_requirement" id="504">
+                                        <field name="req_id">CSoS-1.3</field>
+                                        <field name="title">When the last kilobot wants to leave the platoon, it sends a LEAVE message to everyone</field>
+                                        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Execute : null
+2. Execute : null
+                                        </requirement>
+                                        <data>352,354</data>
+                                        <next>
+                                          <block type="simple_requirement" id="506">
+                                            <field name="req_id">CSoS-1.4</field>
+                                            <field name="title">When a kilobot wants to join the platoon, it sends a JOIN message to the last kilobot in the platoon</field>
+                                            <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Execute : null
+2. Execute : null
+                                            </requirement>
+                                            <data>135,120</data>
+                                            <next>
+                                              <block type="simple_requirement" id="508">
+                                                <field name="req_id">CSoS-1.5</field>
+                                                <field name="title">When a JOIN message is received, the receiver send an OK message iff it's not turning</field>
+                                                <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Execute : null
+                                                </requirement>
+                                                <next>
+                                                  <block type="simple_requirement" id="510">
+                                                    <field name="req_id">CSoS-1.6</field>
+                                                    <field name="title">When an OK message is received, it waits for 150 kilo-ticks and then it starts following the platoon</field>
+                                                    <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Execute : null
+                                                    </requirement>
+                                                    <data>120</data>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="Dynamicity_requirements">
+      <block type="simple_requirement" id="300">
+        <field name="req_id">D-1</field>
+        <field name="title">Any kilobot can enter the platoon if it was not platooning before</field>
+        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Service : Join
+        </requirement>
+        <data>241,244</data>
+        <next>
+          <block type="simple_requirement" id="302">
+            <field name="req_id">D-2</field>
+            <field name="title">Minimum 2 kilobots for platooning</field>
+            <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. CS : Kilobot
+            </requirement>
+            <data>3</data>
+            <next>
+              <block type="simple_requirement" id="304">
+                <field name="req_id">D-3</field>
+                <field name="title">Kilobots can join the platoon only at its tail</field>
+                <requirement pinned="false" h="57" w="170">Satisfied by block(s) :
+--------------------------------
+1. Service : Join
+                </requirement>
+                <data>244</data>
+                <next>
+                  <block type="simple_requirement" id="306">
+                    <field name="req_id">D-4</field>
+                    <field name="title">Only last kilobot can leave the platoon</field>
+                    <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Service : Leave
+                    </requirement>
+                    <data>242</data>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+    <statement name="Evolution_requirements">
+      <block type="simple_requirement" id="310">
+        <field name="req_id">E-1</field>
+        <field name="title">Unique platoon</field>
+        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Expected and beneficial behaviour : Unique Platoon
+        </requirement>
+        <data>216,229</data>
+      </block>
+    </statement>
+    <statement name="Time_requirements">
+      <block type="simple_requirement" id="312">
+        <field name="req_id">T-1</field>
+        <field name="title">Kilobots clock is based on kilo-ticks (32 kilo-ticks = 1 second)</field>
+        <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. State variable : kilo_ticks
+        </requirement>
+        <data>250</data>
+        <next>
+          <block type="simple_requirement" id="314">
+            <field name="req_id">T-2</field>
+            <field name="title">System is event-based (message exchange)</field>
+            <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. RUMI : Message Exchange
+            </requirement>
+            <data>63</data>
+            <next>
+              <block type="simple_requirement" id="316">
+                <field name="req_id">T-3</field>
+                <field name="title">Spinup_motors for 1 second</field>
+                <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. Dependability guarantee : Motors spinup duration = 1000 ms
+                </requirement>
+                <next>
+                  <block type="simple_requirement" id="320">
+                    <field name="req_id">T-4</field>
+                    <field name="title">Platooning runs for 20000 kilo-ticks</field>
+                    <requirement pinned="false" h="100" w="200">Satisfied by block(s) :
+--------------------------------
+1. While : MainLoop
+                    </requirement>
+                    <data>139</data>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="dynamic_service$s" id="238" x="676" y="1273">
     <field name="name">JoinLeave</field>
     <field name="#service">+</field>
     <statement name="variation_to:service">
@@ -1269,7 +1684,7 @@ You may:
       </block>
     </statement>
   </block>
-  <block type="emergent_phenomenon$s" id="228" collapsed="true" x="973" y="1032">
+  <block type="emergent_phenomenon$s" id="228" collapsed="true" x="748" y="1454">
     <field name="name">Platooning</field>
     <field name="#behaviour">+</field>
     <statement name="causes:behaviour">
